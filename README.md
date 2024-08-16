@@ -9,7 +9,7 @@ BreezeConnect TypeScript is a TypeScript implementation of the BreezeConnect API
 
 ## Authors
 
-- [MANISH LAMBA](https://www.github.com/)
+- [MANISH LAMBA]((https://github.com/lamba-manish/)
 
 
 ## Installation
