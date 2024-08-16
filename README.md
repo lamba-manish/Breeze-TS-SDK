@@ -1,14 +1,55 @@
+# Project Title
+
+Unofficial BreezeConnect TypeScript SDK
+
 # BreezeConnect TypeScript
 
 BreezeConnect TypeScript is a TypeScript implementation of the BreezeConnect API, allowing users to interact with the ICICI Direct trading platform programmatically.
 
-## Installation
 
+## Authors
+
+- [MANISH LAMBA](https://www.github.com/)
+
+
+## Installation
 ```bash
 npm install breezeconnect-ts
+```
 
-Usage
 
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/lamba-manish/Breeze-TS-SDK/
+```
+
+Go to the project directory
+
+```bash
+  cd Breeze-TS-SDK
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the test script
+
+```bash
+  npm run test:breeze
+```
+
+
+
+# Usage
+
+
+```javascript
 import { BreezeConnect } from 'breezeconnect-ts';
 
 const breeze = new BreezeConnect(apiKey);
@@ -22,10 +63,11 @@ async function main() {
 }
 
 main().catch(console.error);
+```
 
 
-Available Methods
-
+# Available Methods
+```
 generateSession(apiSecret: string, apiSession: string): Promise<void>
 getCustomerDetails(): Promise<CustomerDetailsResponse>
 getDematHoldings(): Promise<DematHoldingsResponse>
@@ -55,20 +97,18 @@ parseData(data: any[]): ParsedData
 getStockScriptList(): Promise<void>
 subscribeFeeds(params: SubscribeFeedsParams): Promise<SocketConnectionResponse>
 unsubscribeFeeds(params: UnsubscribeFeedsParams): Promise<SocketConnectionResponse>
+```
 
-Contributing
-Contributions are welcome. Please submit a pull request or create an issue for any features or bug fixes.
 
-Author:
-Manishlamba002@gmail.com
+# Methods Usage:
 
-Methods Usage:
-
-always generate session before using and method:
+### Always generate session before using any method:
+```javascript
 const breeze = new BreezeConnect(apiKey);
 await breeze.generateSession(apiSecret, apiSession);
+```
 
-
+```javascript
 1. // Create an instance of BreezeConnect
     const breeze = new BreezeConnect(apiKey);
 
@@ -77,44 +117,36 @@ await breeze.generateSession(apiSecret, apiSession);
     await breeze.generateSession(apiSecret, apiSession);
     console.log('Session generated successfully');
 
-2. const customerDetails = await breeze.getCustomerDetails();
+2.  const customerDetails = await breeze.getCustomerDetails();
     console.log('Customer Details:');
     console.log(JSON.stringify(customerDetails, null, 2));
 
-  #Response
-
-  Fetching customer details...
-  Customer Details:
-  {
-  "Success": null,
-  "Status": 500,
-  "Error": "Request Object is Null"
-  }
 
 3.  console.log('Fetching demat holdings...');
     const dematHoldings = await breeze.getDematHoldings();
     console.log('Demat Holdings:');
     console.log(JSON.stringify(dematHoldings, null, 2));
 
-  #Response
+    #Response
 
-  Fetching demat holdings...
-  Demat Holdings:
-  {
-  "Success": null,
-  "Status": 500,
-  "Error": "Currently, We are not able to process your request. Please try after some time"
-  }
+    Fetching demat holdings...
+    Demat Holdings:
+    {
+    "Success": null,
+    "Status": 500,
+    "Error": "Currently, We are not able to process your request. 
+    Please try  after some time"
+    }
 
-4. console.log('Fetching funds...');
+4.  console.log('Fetching funds...');
     const funds = await breeze.getFunds();
     console.log('Funds:', JSON.stringify(funds, null, 2));
 
-  #Response
+    #Response
 
-  Fetching funds...
-  Funds: {
-  "Success": {
+    Fetching funds...
+    Funds: {
+    "Success": {
     "bank_account": "12345678",
     "total_bank_balance": 342,
     "allocated_equity": 0,
@@ -127,12 +159,12 @@ await breeze.generateSession(apiSecret, apiSession);
     "block_by_trade_currency": 0,
     "block_by_trade_balance": 0,
     "unallocated_balance": "0"
-  },
-  "Status": 200,
-  "Error": null
-  }
+    },
+    "Status": 200,
+    "Error": null
+    }
 
-5. console.log('Setting funds...');
+5.  console.log('Setting funds...');
     const setFundsResult = await breeze.setFunds({
       transactionType: "credit",
       amount: "100",
@@ -143,12 +175,12 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Setting funds...
-  Set Funds Result: {
-  "Success": null,
-  "Status": 500,
-  "Error": "Wallet Amount is not sufficient to allocate "
+    Set Funds Result: {
+    "Success": null,
+    "Status": 500,
+    "Error": "Wallet Amount is not sufficient to allocate "
 
-6. console.log('Fetching historical data...');
+6.  console.log('Fetching historical data...');
     const historicalData = await breeze.getHistoricalData({
       interval: '1day',
       fromDate: '2024-06-01T09:15:00.000Z',
@@ -165,8 +197,8 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Fetching historical data...
-  Historical Data: {
-  "Success": [
+    Historical Data: {
+    "Success": [
     {
       "datetime": "2024-06-03 15:29:57",
       "stock_code": "NIFTY",
@@ -199,22 +231,22 @@ await breeze.generateSession(apiSecret, apiSession);
       "open_interest": null,
       "count": 1
     }
-  ],
-  "Status": 200,
-  "Error": null
-  }
+    ],
+    "Status": 200,
+    "Error": null
+    }
 
-7. console.log('Fetching historical data v2...');
-    const historicalDataV2 = await breeze.getHistoricalDatav2({
+7.   console.log('Fetching historical data v2...');
+      const historicalDataV2 = await breeze.getHistoricalDatav2({
       interval: '1day',
       fromDate: '2024-06-01T09:15:00.000Z',
       toDate: '2024-06-05T15:30:00.000Z',
       stockCode: 'ITC',
       exchangeCode: 'bse'
-    });
-    console.log('Historical Data V2:', JSON.stringify(historicalDataV2, null, 2));
+      });
+      console.log('Historical Data V2:', JSON.stringify(historicalDataV2, null, 2));
 
-8. console.log('Fetching historical data v2...');
+8.  console.log('Fetching historical data v2...');
     const historicalDataV2 = await breeze.getHistoricalDatav2({
       interval: '1day',
       fromDate: '2024-06-01T09:15:00.000Z',
@@ -227,10 +259,10 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Fetching historical data v2...
-  Historical Data V2: {
-  "Error": null,
-  "Status": 200,
-  "Success": [
+    Historical Data V2: {
+    "Error": null,
+    "Status": 200,
+    "Success": [
     {
       "close": 430.55,
       "datetime": "2024-06-03 00:00:00",
@@ -261,10 +293,10 @@ await breeze.generateSession(apiSecret, apiSession);
       "stock_code": "ITC",
       "volume": 1628705
     }
-  ]
-  }
+    ]
+   }
 
-9. console.log('Adding margin...');
+9.  console.log('Adding margin...');
     const addMarginResult = await breeze.addMargin({
       productType: "margin",
       stockCode: "CNXBAN",
@@ -284,20 +316,20 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Getting margin...
-  Margin Result: {
-  "Success": {
+    Margin Result: {
+    "Success": {
     "limit_list": [],
     "cash_limit": 0,
     "amount_allocated": 0,
     "block_by_trade": 0,
     "isec_margin": 0
-  },
-  "Status": 200,
-  "Error": null
-  }
+    },
+    "Status": 200,
+    "Error": null
+    }
 
-11. console.log('Placing order...');
-    const placeOrderResult = await breeze.placeOrder({
+11.   console.log('Placing order...');
+      const placeOrderResult = await breeze.placeOrder({
       stockCode: "CNXBAN",
       exchangeCode: "NFO",
       product: "options",
@@ -309,36 +341,36 @@ await breeze.generateSession(apiSecret, apiSession);
       strikePrice: '49000',
       expiryDate: '21-Aug-2024',
       right: 'call'
-    });
-    console.log('Place Order Result:', JSON.stringify(placeOrderResult, null, 2));
+      });
+      console.log('Place Order Result:', JSON.stringify(placeOrderResult, null, 2));
 
-    #Response
+      #Response
 
-    Placing order...
-  Place Order Result: {
-  "Success": {
-    "order_id": "4567",
-    "message": "Successfully Placed the order",
-    "user_remark": ""
-  },
-  "Status": 200,
-  "Error": null
-  }
+      Placing order...
+      Place Order Result: {
+      "Success": {
+      "order_id": "4567",
+      "message": "Successfully Placed the order",
+      "user_remark": ""
+      },
+      "Status": 200,
+      "Error": null
+      }
 
-12. console.log('Getting order details...');
-        const orderDetail = await breeze.getOrderDetail({
+12.   console.log('Getting order details...');
+      const orderDetail = await breeze.getOrderDetail({
           exchangeCode: "NFO",
           orderId: "1234"
         });
         console.log('Order Detail:', JSON.stringify(orderDetail, null, 2));
       }
 
-    #Response
+      #Response
 
-    Getting order details...
-  Order Detail: {
-  "Success": [
-    {
+      Getting order details...
+      Order Detail: {
+      "Success": [
+      {
       "order_id": "1234",
       "exchange_order_id": "12",
       "exchange_code": "NFO",
@@ -372,25 +404,25 @@ await breeze.generateSession(apiSecret, apiSession);
       "mbc_flag": null,
       "cutoff_price": null,
       "validity_date": null
+      }
+      ],
+    "Status": 200,
+    "Error": null
     }
-  ],
-  "Status": 200,
-  "Error": null
-  }
 
 13.   console.log('Getting order list...');
-    const orderList = await breeze.getOrderList({
+      const orderList = await breeze.getOrderList({
       exchangeCode: "NFO",
       fromDate: "2024-08-16T00:00:00.000Z",
       toDate: "2024-08-16T23:59:59.999Z"
-    });
-    console.log('Order List:', JSON.stringify(orderList, null, 2));
+      });
+      console.log('Order List:', JSON.stringify(orderList, null, 2));
 
-    #Response
+      #Response
 
-    Getting order list...
-  Order List: {
-  "Success": [
+      Getting order list...
+    Order List: {
+    "Success": [
     {
       "order_id": "1234",
       "exchange_order_id": "1234",
@@ -460,13 +492,13 @@ await breeze.generateSession(apiSecret, apiSession);
       "mbc_flag": null,
       "cutoff_price": null,
       "validity_date": null
-    },
-  ],
-  "Status": 200,
-  "Error": null
-  }
+      },
+    ],
+    "Status": 200,
+    "Error": null
+    }
 
-14. console.log('Cancelling the order...');
+14.   console.log('Cancelling the order...');
       const cancelOrderResult = await breeze.cancelOrder({
         exchangeCode: "NFO",
         orderId: "1111"
@@ -476,16 +508,16 @@ await breeze.generateSession(apiSecret, apiSession);
       #Response
 
       Cancelling the order...
-  Cancel Order Result: {
-  "Success": {
-    "order_id": "202408161300040188",
-    "message": "Your Order Canceled Successfully"
-  },
-  "Status": 200,
-  "Error": null
-  }
+      Cancel Order Result: {
+      "Success": {
+      "order_id": "202408161300040188",
+      "message": "Your Order Canceled Successfully"
+      },
+      "Status": 200,
+      "Error": null
+      }
 
-15. console.log('Modifying the order...');
+15.   console.log('Modifying the order...');
         const modifyOrderResult = await breeze.modifyOrder({
           orderId: "202408161300040870",
           exchangeCode: "NFO",
@@ -499,29 +531,29 @@ await breeze.generateSession(apiSecret, apiSession);
       #Response
 
       Modifying the order...
-  Modify Order Result: {
-  "Success": {
-    "message": "Successfully Modified the order",
-    "order_id": "202408161300040870"
-  },
-  "Status": 200,
-  "Error": null
-  }
+      Modify Order Result: {
+      "Success": {
+      "message": "Successfully Modified the order",
+      "order_id": "202408161300040870"
+      },
+      "Status": 200,
+      "Error": null
+      }
 
 16.     console.log('Getting portfolio holdings...');
-    const portfolioHoldings = await breeze.getPortfolioHoldings({
-      exchangeCode: "BFO",
-      fromDate: "2024-08-16T00:00:00.000Z",
-      toDate: "2024-08-16T23:59:59.999Z"
-    });
-    console.log('Portfolio Holdings:', JSON.stringify(portfolioHoldings, null, 2));
+        const portfolioHoldings = await breeze.getPortfolioHoldings({
+        exchangeCode: "BFO",
+        fromDate: "2024-08-16T00:00:00.000Z",
+        toDate: "2024-08-16T23:59:59.999Z"
+        });
+        console.log('Portfolio Holdings:', JSON.stringify(portfolioHoldings, null, 2));
 
-    #Response
+      #Response
 
-    Getting portfolio holdings...
-  Portfolio Holdings: {
-  "Success": [
-    {
+      Getting portfolio holdings...
+      Portfolio Holdings: {
+      "Success": [
+      {
       "stock_code": "BSESEN",
       "exchange_code": "BFO",
       "quantity": "0",
@@ -580,21 +612,21 @@ await breeze.generateSession(apiSecret, apiSession);
       "unrealized_profit": "-1166",
       "open_position_value": "-1274",
       "portfolio_charges": "0"
-    }
-  ],
-  "Status": 200,
-  "Error": null
-  }
+        }
+      ],
+      "Status": 200,
+      "Error": null
+      }
 
-17.    console.log('Getting portfolio positions...');
+17. console.log('Getting portfolio positions...');
     const portfolioPositions = await breeze.getPortfolioPositions();
     console.log('Portfolio Positions:', JSON.stringify(portfolioPositions, null, 2));
 
     #Response
 
     Getting portfolio positions...
-  Portfolio Positions: {
-  "Success": [
+    Portfolio Positions: {
+    "Success": [
     {
       "segment": "fno",
       "product_type": "Options",
@@ -627,11 +659,11 @@ await breeze.generateSession(apiSecret, apiSession);
       "pnl": null,
       "underlying": "BSESEN",
       "order_segment_code": null
-    }
-  ],
-  "Status": 200,
-  "Error": null
-  }
+      }
+    ],
+      "Status": 200,
+      "Error": null
+      }
 
 18. console.log('Getting quotes...');
     const quotes = await breeze.getQuotes({
@@ -646,8 +678,8 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response 
 
     Getting quotes...
-  Quotes: {
-  "Success": [
+    Quotes: {
+    "Success": [
     {
       "exchange_code": "NFO",
       "product_type": "Future",
@@ -671,10 +703,10 @@ await breeze.generateSession(apiSecret, apiSession);
       "total_quantity_traded": "2108370",
       "spot_price": "50410.5"
     }
-  ],
-  "Status": 200,
-  "Error": null
-  }
+    ],
+    "Status": 200,
+    "Error": null
+    }
 
 19. console.log('Getting option chain quotes...');
     const optionChainQuotes = await breeze.getOptionChainQuotes({
@@ -690,8 +722,8 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Getting option chain quotes...
-  Option Chain Quotes: {
-  "Success": [
+    Option Chain Quotes: {
+    "Success": [
     {
       "exchange_code": "NFO",
       "product_type": "Options",
@@ -720,10 +752,10 @@ await breeze.generateSession(apiSecret, apiSession);
       "total_buy_qty": "181305",
       "total_sell_qty": "469410"
     }
-  ],
-  "Status": 200,
-  "Error": null
-  }
+    ],
+    "Status": 200,
+    "Error": null
+    }
 
 20. console.log('Squaring off a position...');
     const squareOffResult = await breeze.squareOff({
@@ -744,11 +776,11 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Squaring off a position...
-  Square Off Result: {
-  "Success": null,
-  "Status": 500,
-  "Error": "Resource not available"
-  }
+    Square Off Result: {
+    "Success": null,
+    "Status": 500,
+    "Error": "Resource not available"
+    }
 
 21. console.log('Getting trade list...');
     const tradeList = await breeze.getTradeList({
@@ -761,8 +793,8 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Getting trade list...
-  Trade List: {
-  "Success": [
+    Trade List: {
+    "Success": [
     {
       "book_type": "Trade-Book",
       "trade_date": "16-Aug-2024",
@@ -812,19 +844,19 @@ await breeze.generateSession(apiSecret, apiSession);
       "strike_price": "80500"
     },
     ],
-  "Status": 200,
-  "Error": null
-  }
+    "Status": 200,
+    "Error": null
+    }
 
 22. console.log('Getting trade detail...');
-        const tradeDetail = await breeze.getTradeDetail({
+    const tradeDetail = await breeze.getTradeDetail({
           exchangeCode: 'NFO',
           orderId: '202408071300030694'
         });
         console.log('Trade Detail:', JSON.stringify(tradeDetail, null, 2));
 
-        #Response
-        Trade Detail: {
+    #Response
+    Trade Detail: {
     "Success": [
     {
       "settlement_id": null,
@@ -843,9 +875,9 @@ await breeze.generateSession(apiSecret, apiSession);
       "exchange_trade_time": "17-Aug-2024 13:51:08"
     }
   ],
-  "Status": 200,
-  "Error": null
-  }
+    "Status": 200,
+    "Error": null
+    }
 
 23. console.log('Previewing order...');
     const previewOrderResult = await breeze.previewOrder({
@@ -868,8 +900,8 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Previewing order...
-  Preview Order Result: {
-  "Success": {
+    Preview Order Result: {
+    "Success": {
     "brokerage": 7,
     "exchange_turnover_charges": 1.5,
     "stamp_duty": 0.09,
@@ -880,9 +912,9 @@ await breeze.generateSession(apiSecret, apiSession);
     "total_other_charges": 3.12,
     "total_brokerage": 10.12
   },
-  "Status": 200,
-  "Error": null
-  }
+    "Status": 200,
+    "Error": null
+    }
 
 24. console.log('Calculating limit...');
     const limitCalculatorResult = await breeze.limitCalculator({
@@ -906,16 +938,16 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Calculating limit...
-  Limit Calculator Result: {
-  "Success": {
+    Limit Calculator Result: {
+    "Success": {
     "available_quantity": "0",
     "action_id": "0",
     "order_margin": "0",
     "limit_rate": "0.05"
-  },
-  "Status": 200,
-  "Error": null
-  }
+    },
+    "Status": 200,
+    "Error": null
+    }
 
 25. console.log('Calculating margin...');
 
@@ -963,8 +995,8 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Calculating margin...
-  Margin Calculator Result: {
-  "Success": {
+    Margin Calculator Result: {
+    "Success": {
     "margin_calulation": [
       {
         "strike_price": "0",
@@ -993,10 +1025,10 @@ await breeze.generateSession(apiSecret, apiSession);
     "trade_margin": null,
     "block_trade_margin": "0",
     "span_margin_required": "27826.14"
-  },
-  "Status": 200,
-  "Error": null
-  }
+    },
+    "Status": 200,
+    "Error": null
+    }
 
 26. console.log('Getting names...');
     const getNamesResult = await breeze.getNames({
@@ -1008,30 +1040,18 @@ await breeze.generateSession(apiSecret, apiSession);
     #Response
 
     Getting names...
-  Get Names Result: {
-  "status": "SUCCESS",
-  "isec_stock_code": "RELIND",
-  "isec_token": "2885",
-  "company_name": "\"RELIANCE INDUSTRIES\"",
-  "isec_token_level1": "4.1!2885",
-  "isec_token_level2": "4.2!2885",
-  "exchange_stockCode": "RELIANCE",
-  "exchange": "nse"
-  }
+    Get Names Result: {
+    "status": "SUCCESS",
+    "isec_stock_code": "RELIND",
+    "isec_token": "2885",
+    "company_name": "\"RELIANCE INDUSTRIES\"",
+    "isec_token_level1": "4.1!2885",
+    "isec_token_level2": "4.2!2885",
+    "exchange_stockCode": "RELIANCE",
+    "exchange": "nse"
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-License
-This project is licensed under the MIT License.
+```
 
 
 
